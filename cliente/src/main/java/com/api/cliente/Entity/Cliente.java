@@ -37,5 +37,5 @@ public class Cliente {
     private String ciudad;
 
     @Column(length = 45)
-    private String pais;
+    private String pais;    
 }
