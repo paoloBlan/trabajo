@@ -2,8 +2,6 @@ package com.api.cliente.Entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
@@ -17,8 +15,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Table(name = "cliente", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 public class Cliente {
+    
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idCliente")
     private int idCliente;
 
     @Column(length = 45)
