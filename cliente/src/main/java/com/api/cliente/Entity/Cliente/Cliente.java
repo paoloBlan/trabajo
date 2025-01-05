@@ -1,17 +1,16 @@
-package com.api.cliente.Entity;
+package com.api.cliente.Entity.Cliente;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
-import lombok.AllArgsConstructor;
+import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "cliente", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 public class Cliente {
@@ -21,6 +20,7 @@ public class Cliente {
     private int idCliente;
 
     @Column(length = 45)
+    @Pattern(regexp = "^[A-Za-záéíóúÁÉÍÓÚÑñ ]+$", message = "El nombre solo puede contener letras y espacios.")
     private String nombre;
 
     @Column(length = 45)
@@ -36,5 +36,19 @@ public class Cliente {
     private String ciudad;
 
     @Column(length = 45)
-    private String pais;    
+    private String pais;
+
+    public Cliente(int idCliente, String nombre, String apellido, String telefono) {
+        this.idCliente = idCliente;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.telefono = telefono;
+    }
+
+    public Cliente(String nombre, String apellido) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+    } 
+    
+    
 }
