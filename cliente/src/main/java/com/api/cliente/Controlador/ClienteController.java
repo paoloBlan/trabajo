@@ -35,9 +35,12 @@ public class ClienteController {
     }
 
     @PostMapping("/agregar")
-    public ResponseEntity<Object> AgregarClientes(@Validated @RequestBody   Cliente cliente) {
-            return clienteService.saveCliente(cliente) == false
-        ? ResponseEntity.status(HttpStatus.NOT_MODIFIED).body("no se agrego correctamente")
-        : ResponseEntity.ok(cliente);
+    public ResponseEntity<String> guardarCliente(@RequestBody Cliente cliente) {
+        try {
+            clienteService.saveCliente(cliente);
+            return ResponseEntity.ok("Cliente guardado con éxito.");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+        }
     }
 }

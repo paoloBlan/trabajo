@@ -13,6 +13,9 @@ import com.api.cliente.Entity.Cliente.ClienteMostrarDTO;
 
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente, Integer>{
+
+    boolean existsByEmail(String email);
+    
     @Query(value = """
         SELECT idCliente,nombre, apellido, cast(AES_DECRYPT(telefono, 'ventas2024') as char) AS telefono
         FROM cliente
@@ -26,10 +29,11 @@ public interface ClienteRepository extends JpaRepository<Cliente, Integer>{
 
     @Modifying
     @Query(value = """
-            INSERT INTO cliente (nombre, apellido, telefono, email, ciudad, pais)
-            VALUES (:nombre, :apellido, AES_ENCRYPT(:telefono, 'ventas2024'), :email, :ciudad, :pais)
+            INSERT INTO cliente (idCliente, nombre, apellido, telefono, email, ciudad, pais) 
+            VALUES (:idCliente, :nombre, :apellido, AES_ENCRYPT(:telefono, 'ventas2024'), :email, :ciudad, :pais)
             """, nativeQuery = true)
-    int saveCliente(@Param("nombre") String nombre, 
+    int saveCliente(@Param("idCliente") Integer idCliente,
+                    @Param("nombre") String nombre, 
                     @Param("apellido") String apellido,
                     @Param("telefono") String telefono, 
                     @Param("email") String email, 

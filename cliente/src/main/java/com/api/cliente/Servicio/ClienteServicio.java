@@ -8,6 +8,8 @@ import com.api.cliente.Entity.Cliente.Cliente;
 import com.api.cliente.Entity.Cliente.ClienteMostrarDTO;
 import com.api.cliente.Repositry.ClienteRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class ClienteServicio {
     @Autowired
@@ -17,8 +19,15 @@ public class ClienteServicio {
         return clienteRepository.findByNombreOrApellido(nombre,apellido);
     }
 
+    @Transactional
     public boolean saveCliente(Cliente cliente) {
-        int row = clienteRepository.saveCliente(cliente.getNombre(), cliente.getApellido(), cliente.getTelefono(), cliente.getEmail(),cliente.getCiudad(), cliente.getPais());
+        int row = 0;
+        if(clienteRepository.existsByEmail(cliente.getEmail())){
+            throw new IllegalArgumentException("El correo electrónico ya está registrado.");
+        }else{
+            row = clienteRepository.saveCliente(cliente.getIdCliente(), cliente.getNombre(), cliente.getApellido(), cliente.getTelefono(), cliente.getEmail(),cliente.getCiudad(), cliente.getPais());
+        }
+       
         return row > 0 ? true : false;
     }
 }

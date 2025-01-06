@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -38,10 +39,11 @@ public class Cliente {
     @NotBlank(message = "es obligatorio")
     private String telefono;
 
+    
     @NotBlank(message = ConstValidation.MESSAGE_VACIO)
-    @Pattern(regexp = ConstValidation.PATTERN_LETRAS, message = ConstValidation.MESSAGE_LETRAS_ESPACIOS)
+    @Email(message = ConstValidation.MESSAGE_EMAIL)
     @Size(max = ConstValidation.MAX_45, message = ConstValidation.MESSAGE_MAX_45)
-    @Column(length = 45)
+    @Column(length = 45, unique = true)
     private String email;
 
     @NotBlank(message = ConstValidation.MESSAGE_VACIO)
