@@ -1,5 +1,7 @@
 package com.api.cliente.Entity.Cliente;
 
+import com.api.cliente.Validacion.ConstValidation;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -11,13 +13,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ClienteBuscarDTO {
-    @Pattern(regexp = "^[A-Za-záéíóúÁÉÍÓÚÑñ ]+$", message = "El nombre solo puede contener letras y espacios.")
-    @NotBlank(message = "El nombre debe ser obligatorio")
-    @Size(max = 45, message = "Solo se permite 45 letras")
+   
+    @NotBlank(message = ConstValidation.MESSAGE_VACIO)
+    @Pattern(regexp = ConstValidation.PATTERN_LETRAS, message = ConstValidation.MESSAGE_LETRAS_ESPACIOS)
+    @Size(max = ConstValidation.MAX_45, message = ConstValidation.MESSAGE_MAX_45)
     private String nombre;
-    
-    @Pattern(regexp = "^[A-Za-záéíóúÁÉÍÓÚÑñ ]+$", message = "El Apellido solo puede contener letras y espacios.")
-    @NotBlank(message = "El nombre debe ser obligatorio")
-    @Size(max = 45, message = "Solo se permite 45 letras")
+   
+    @NotBlank(message = ConstValidation.MESSAGE_VACIO)
+    @Pattern(regexp = ConstValidation.PATTERN_LETRAS, message = ConstValidation.MESSAGE_LETRAS_ESPACIOS)
+    @Size(max = ConstValidation.MAX_45, message = ConstValidation.MESSAGE_MAX_45 )
     private String apellido;
 }
