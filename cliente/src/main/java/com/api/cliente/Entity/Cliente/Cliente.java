@@ -21,6 +21,7 @@ import lombok.NoArgsConstructor;
 public class Cliente {
     @Id
     @Column(name = "idCliente")
+    
     private int idCliente;
 
     @NotBlank(message = ConstValidation.MESSAGE_VACIO)
@@ -35,10 +36,9 @@ public class Cliente {
     @Column(length = 45)
     private String apellido;
 
-    @Pattern(regexp = "^\\+?[0-9]{7,15}$", message = "Número de teléfono inválido. Debe contener entre 7 y 15 dígitos y puede incluir un prefijo '+'")
-    @NotBlank(message = "es obligatorio")
+    @Pattern(regexp = ConstValidation.PATTERN_TELEFONO, message = ConstValidation.MESSAGE_TELEFONO)
+    @NotBlank(message = ConstValidation.MESSAGE_VACIO)
     private String telefono;
-
     
     @NotBlank(message = ConstValidation.MESSAGE_VACIO)
     @Email(message = ConstValidation.MESSAGE_EMAIL)
